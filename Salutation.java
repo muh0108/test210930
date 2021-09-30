@@ -2,6 +2,7 @@ import java.util.Calendar;
 
 public class Salutation {
 	public static void main(String[] args) {
+        System.out.println("���� �ð��� " + Hour + "�� " + Minute + "���Դϴ�.");
 		Calendar cal = Calendar.getInstance();
 		int Hour = cal.get(Calendar.HOUR_OF_DAY);
 		int Minute = cal.get(Calendar.MINUTE);
