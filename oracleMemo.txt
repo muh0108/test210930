@@ -1,0 +1,176 @@
+select * from tab
+->테이블의 모든 항목을 표시
+desc 칼럼명
+->칼럼의 구조 확인
+WHERE 조건부넣기
+
+order by - desc / asc
+정렬하기/ DESC 내림차순, ASC 오름차순
+
+문자열함수
+INITCAP('abcd') -> Abcd
+LOWER('ABCD')-> abcd
+UPPER('abcd') ->ABCD
+LENGTH('한글')->2
+LENGTHB('한글')->4
+CONCAT('A','B') ->AB
+SUBSTR('ABC',1,2)->AB
+SUBSTRB('한글',1,2)->한
+INSTR('A*B#','#') ->4 
+INSTRB('한글로','로') -> 5
+LPAD('love',6,'*') ->**love
+RPAD('love',6,'*') ->love**
+LTRIM('*love','*') -> love
+RTRIM('love*','*') -> love
+REPLACE('AB','A','E') -> EB
+
+ROUND : 지정한 자릿수에서 반올림하는 함수
+TRUNC : 지정한 자릿수에서 버림 하는 함수
+
+SYSDATE  : 지정된 형식으로 현재 날짜와 시간을 표시하는 함수
+YYYY / YY / YEAR  - 년도 : 4자리/뒤2자리/문자
+MONTH/MON/MM/RM - 달 : 이름/약어/숫자/로마자
+DDD / DD / D 일 : 1년기준/1달기준/1주 기준
+Q 분기 : 1,2,3,4분기
+DAY/DY 요일 : 이름/약어
+HH(12) / HH(24) 시간 : 12시간/24시간
+MI 분
+SS 초
+
+ADD_MONTHS : 지정한 만큼의 달 수를 더한 날짜를 반환하는 함수
+MONTH_BTWEEN : 지정한 두 날짜 사이의 월 수를 반환
+NEXT_DAY
+LAST_DAY
+
+TO_CHAR
+(1234,'99999') => 1234
+(1234,'099999' => 001234
+(1234,'$9999') =>$1234
+(1234,'9999.99') =>1234.00
+(12345,'99,999')=> 12,345
+
+NVL : 값이 null인 경우 지정값을 출력
+->NVL("값","지정값")
+
+NVL2 : 값이 null이 아닌경우 지정값1/null인 경우 지정값2를 출력
+->NVL("값","지정값1","지정값2")
+
+DECODE() : if 문과 동일
+decode(조건칼럼, 조건값1,  출력데이터1,
+                         조건값2,  출력데이터2,
+                         default값)  from table명;
+
+CASE문 : switch문과 동일
+case 기준 when 조건 then 출력
+else 예외
+end 칼럼명
+
+
+SUM --합계
+AVG --평균
+MAX --최대값
+MIN --최소값
+stddev --표준편차
+variance --분산
+
+GROUP BY 어느 항목을 기준으로 그룹화할건지 결정
+HAVING --그룹핑했을때 조건부 (WHERE의 역할)
+
+
+DML (Data Manipulation Language) : INSERT , UPDATE , DELETE , MERGE
+--데이터 조작어/ 데이터 추가, 변경, 삭제
+	INSERT : 새로운 데이터 입력 하기
+	UPDATE : 데이터 변경 하기
+	DELETE : 데이터 삭제 하기
+	MERGE: 병합(생략)
+DDL (Data Definition Language) : CREATE , ALTER , DROP
+--데이터 정의어/보관 및 관리를 위한 여러객체의 생성, 변경, 삭제 
+--정의를 실행하면 자동으로 COMMIT되어 바로 적용 롤백이 불가능
+DCL (Data Control Language) : GRANT , REVOKE
+--데이터 제어어/특정사용자에게 권한을 부여, 제거하기위함
+TCL ( Transaction Control Language): COMMIT , ROLLBACK
+
+
+--트렌젝션 제어어/DML만 가능
+※ COMMIT : 모든작업을 확정하는 명령어
+※ 트랜젝션 : 하나의 작업 단위
+
+
+파일 -- [테이블 생성하기.sql]
+테이블의 생성
+-- CREATE TABLE 생성할 테이블 이름
+	(칼럼명 - 구조, 칼럼명 - 구조);
+
+테이블 복사
+-- CREATE TABLE 새로 생성할 테이블 이름
+	AS
+	SELECT 복사할 칼럼 FROM 복사할 테이블명
+
+테이블에 칼럼을 추가
+--ALTER TABLE 칼럼을 추가할 테이블명
+	ADD (칼럼명 - 구조);
+
+테이블에 칼럼 추가하면서 기본값을 추가
+--ALTER TABLE 칼럼을 추가할 테이블명
+	ADD (칼럼명 구조 DEFAULT 기본값);
+
+칼럼이름 변경
+--ALTER TABLE 칼럼이름 바꿀 테이블이름 
+	RENAME COLUMN 기존칼럼명 TO 바꿀칼럼명;
+
+테이블이름 변경
+--RENAME 기존테이블명 TO 바꿀테이블명;
+
+테이블 칼럼에 데이터를 추가
+--INSERT INTO 테이블명(칼럼들)
+          VALUES (칼럼의 내용);
+
+데이터 구조변경
+--ALTER TABLE 테이블명
+	MODIFY(칼럼명 변경할 구조);
+
+칼럼에 데이터 추가
+--INSERT INTO 테이블명(테이블에 칼럼들 각각 적음)
+          VALUES (칼럼에 맞춰 순서대로 넣을 데이터값);
+※모든 칼럼에 데이터를 넣을경우 테이블명 뒤 괄호는 생략가능
+
+되돌리기, 실행취소
+--ROLLBACK; 
+
+데이터 확정
+--COMMIT;
+
+데이터 변경하기
+--UPDATE 테이블명
+	SET 변경할 칼럼명 = 변경값
+	WHERE 조건칼럼 = 지정조건;
+
+데이터 삭제
+--DELETE FROM 삭제할 테이블명
+	WHERE 조건절;
+
+데이터 자름
+TRUNCATE TABLE 테이블명;
+--삭제랑 똑같음. 단, 롤백해도 내용이 없음 다 잘려나감;ㅂ;
+
+칼럼삭제
+--ALTER TABLE 테이블명 
+	DROP COLUMN 칼럼명;
+
+테이블 삭제
+--DROP TABLE 테이블명;
+테이블 째로 다 삭제됨
+
+
+1. PRIMARY KEY(주키)
+PRIMARY KEY(주키)는 이 NOT NULL과 UNIQUE의 속성을 동시에 가진다.(null입력 불가, 중복불가)
+- NOT NULL: NULL 값을 입력 못함
+- UNIQUE: 열내에 중복값이 있으면 안됨
+
+2. FOREIGN KEY(참조키)
+FOREIGN KEY(참조키)는 참조하고자 하는 테이블의 PRIMARY KEY(주키)를 참조하는 것인데, 
+FOREIGN KEY(참조키)를 설정하면 NULL(NOT NULL 제약조건이 없는 경우)과 PRIMARY KEY(주키)에 있는 값만 입력할 수 있다.
+
+
+
+ALTER TABLE NEW_EMP9 DROP CONSTAINT JUMIN_UK;
